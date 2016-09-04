@@ -1,4 +1,5 @@
 from constants import *
+import random
 
 name = 'Слизень'
 
@@ -21,9 +22,12 @@ def get_actions(user):
 
 def action(user, reply, text):
 	if text == 'Раздавить':
-		reply('Ты раздавил его, но запачкал обувь')
-
-		user.add_tag('dirt')
-		user.won(reply)
+		if random.random() < 0.1:
+			reply('Вы не смогли раздавить слизня. Слизь поглотила вас.')
+			user.death(reply)
+		else:
+			reply('Ты раздавил его, но запачкал обувь')
+			user.add_tag('dirt')
+			user.won(reply)
 	else:
 		user.fight_action(reply, text)
